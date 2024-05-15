@@ -58,6 +58,7 @@ body {
   background-color: var(--background-color-light);
   color: var(--text-color-light);
   transition: background-color var(--transition-speed), color var(--transition-speed);
+  overflow-y: auto;
 }
 
 /* body::before {
@@ -83,11 +84,14 @@ body {
   min-height: 100vh;
   padding: 2rem;
   position: relative;
+  font-size: calc(3px + 1.5vh);
 }
 
 h2 {
   margin-top: 2rem;
-  color :#133947;
+  color: #133947;
+  text-align: center;
+  font-size: calc(11px + 1.5vh);
 }
 
 .mode-toggle {
@@ -101,8 +105,7 @@ h2 {
   font-size: 1.5rem;
 }
 
-.language-toggle 
-{
+.language-toggle {
   position: absolute;
   top: 1rem;
   left: 1rem;
@@ -130,7 +133,7 @@ h2 {
   width: 40%;
   padding: 2rem;
   border-radius: 1rem;
-  display : flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -144,18 +147,16 @@ h2 {
   align-items: flex-start;
 }
 
-input
-{
+input {
   margin-top: 10px;
-  width:200px;
-  padding:10px 15px;
+  width: 200px;
+  padding: 10px 15px;
 }
 
-select 
-{
+select {
   margin-top: 10px;
-  width:235px;
-  padding:10px 15px;
+  width: 235px;
+  padding: 10px 15px;
 }
 
 .submit-button {
@@ -192,19 +193,34 @@ select
   color: #fff;
 }
 
-.dark .mode-toggle , .dark .language-toggle {
+.dark .mode-toggle,
+.dark .language-toggle {
   /* Other styles */
-  color: #fff; /* Change icon color to white */
+  color: #fff;
+  /* Change icon color to white */
 }
-.dark .submit-button
-{
+
+.dark .submit-button {
   background-color: #f07e36;
 }
-.dark h2
-{
-  color :#fff;
+
+.dark h2 {
+  color: #fff;
 }
-.arabic-form > .form-group
-{
+
+.arabic-form>.form-group {
   align-items: flex-end;
+}
+
+.arabic-form input::placeholder {
+  text-align: right;
+}
+.arabic-form input {
+  text-align: right;
+}
+
+.arabic-form select {
+  text-align: right;
+  text-align-last: right;
+
 }
