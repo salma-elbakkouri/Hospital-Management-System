@@ -60,6 +60,21 @@ body {
   transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
+/* body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(#000 1px, transparent 0.5);
+  background-size: 20px 20px; 
+} */
+
+
+/* Your existing CSS */
+
+/* Additions for updated styles */
 .form-container {
   display: flex;
   flex-direction: column;
@@ -67,88 +82,129 @@ body {
   justify-content: center;
   min-height: 100vh;
   padding: 2rem;
+  position: relative;
 }
 
-.form-container.dark {
-  background-color: var(--background-color-dark);
-  color: var(--text-color-dark);
+h2 {
+  margin-top: 2rem;
+  color :#133947;
 }
 
 .mode-toggle {
-  background-color: var(--primary-color-light);
-  color: var(--text-color-light);
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
   border: none;
-  padding: 0.5rem 1rem;
   cursor: pointer;
-  margin-bottom: 1rem;
-  transition: background-color var(--transition-speed);
+  color: var(--text-color-light);
+  font-size: 1.5rem;
 }
 
-.mode-toggle:hover {
-  background-color: var(--primary-color-dark);
+.language-toggle 
+{
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color-light);
+  font-size: 1.5rem;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-image {
+  width: 40%;
+  margin-right: 2rem;
 }
 
 .user-form {
-  display: grid;
-  gap: 1.5rem;
-  background-color: var(--background-color-light);
+  width: 40%;
   padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: background-color var(--transition-speed);
-}
-
-.form-container.dark .user-form {
-  background-color: var(--background-color-dark);
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  display : flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-group {
+  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-label {
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+input
+{
+  margin-top: 10px;
+  width:200px;
+  padding:10px 15px;
 }
 
-input, select {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  font-size: 1rem;
-}
-
-input:focus, select:focus {
-  border-color: var(--primary-color-light);
-  outline: none;
-  box-shadow: 0 0 5px var(--primary-color-light);
+select 
+{
+  margin-top: 10px;
+  width:235px;
+  padding:10px 15px;
 }
 
 .submit-button {
-  background-color: var(--primary-color-light);
-  color: var(--text-color-light);
+  background-color: #246b85;
+  color: white;
+  padding: 10px 15px;
+  width: 235px;
+  border-radius: 3px;
   border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  border-radius: 0.25rem;
-  transition: background-color var(--transition-speed), transform var(--transition-speed);
 }
 
-.submit-button:hover {
-  background-color: var(--primary-color-dark);
-  transform: translateY(-2px);
-}
-
+/* Media query for responsiveness */
 @media (max-width: 768px) {
+  .content-container {
+    flex-direction: column;
+  }
+
+  .form-image {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 2rem;
+  }
+
   .user-form {
     width: 100%;
-    padding: 1rem;
   }
+}
 
-  .submit-button {
-    width: 100%;
-  }
+
+.dark {
+  background-color: #133947;
+  color: #fff;
+}
+
+.dark .mode-toggle , .dark .language-toggle {
+  /* Other styles */
+  color: #fff; /* Change icon color to white */
+}
+.dark .submit-button
+{
+  background-color: #f07e36;
+}
+.dark h2
+{
+  color :#fff;
+}
+.arabic-form > .form-group
+{
+  align-items: flex-end;
 }
