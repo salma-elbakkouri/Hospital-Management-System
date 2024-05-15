@@ -15,7 +15,7 @@ const Form = () => {
       <form className="user-form">
         <div className="form-group">
           <label htmlFor="firstName">First Name</label>
-          <input type="text" id="firstName" name="firstName" required />
+          <input type="text" id="firstName"  placeholder="First_name" name="firstName" required />
         </div>
         <div className="form-group">
           <label htmlFor="secondName">Second Name</label>
