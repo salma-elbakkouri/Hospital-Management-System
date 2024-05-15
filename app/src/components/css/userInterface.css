@@ -1,0 +1,165 @@
+/* src/WaitingRoom.css */
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #f5f5f5;
+  --text-color: #333;
+  --background-color: #fff;
+  --font-family: 'Roboto', sans-serif;
+  --transition-speed: 0.3s;
+
+  --gradient-start: #fbf2e1;
+  --gradient-middle: #f3ffd2;
+  --gradient-end: #b1eeff;
+  --number-color: #333;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrollbar during background animation */
+}
+
+body.dark-mode {
+  --background-color: #333;
+  --text-color: #f5f5f5;
+  --primary-color: #90caf9;
+  --secondary-color: #424242;
+  
+  --gradient-start: #0f0c29;
+  --gradient-middle: #302b63;
+  --gradient-end: #24243e;
+  --number-color: #f5f5f5;
+}
+
+.waiting-room {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+  text-align: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden; /* Ensure content doesn't overflow */
+}
+
+.toggle-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--primary-color);
+  transition: color var(--transition-speed);
+}
+
+.toggle-icon:hover {
+  color: darken(var(--primary-color), 10%);
+}
+
+.language-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 24px; /* Set the width of the icon */
+  height: 24px; /* Set the height of the icon */
+  cursor: pointer;
+  transition: color var(--transition-speed);
+}
+
+.language-icon .white-icon path {
+  fill: var(--text-color); /* Ensures the color is white in dark mode */
+}
+
+.language-icon:hover {
+  color: darken(var(--primary-color), 10%);
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 3.5rem;
+  margin: 0;
+}
+
+p {
+  margin: 1.5rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+@media (max-width: 726px) {
+  .logo-image {
+    width: 100px;
+  }
+}
+
+.waiting-image {
+  max-width: 200px;
+  height: auto;
+  width: 100%;
+}
+
+@media (max-width: 726px) {
+  .waiting-image {
+    width: 70px;
+  }
+  .current_number {
+    font-weight: 900;
+    font-size: 100px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--number-color);
+  }
+}
+
+.current_number {
+  font-weight: 900;
+  font-size: 100px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.estimated-time {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+    margin-bottom: -20px;
+  }
+}
+.fa-language{
+  font-size: 25px;
+}
+.fa-moon{
+  color: black;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(130deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+  background-size: 300% 300%;
+  animation: gradientAnimation 8s ease infinite;
+  z-index: -1;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
