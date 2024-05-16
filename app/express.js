@@ -9,7 +9,10 @@ app.use(cors());
 app.use(express.json());
 
 // Specify the path to your SQLite database file
-const dbPath = 'C:\\Users\\salma\\OneDrive\\Bureau\\hospitalDB\\db.db';
+// const dbPath = 'C:\\Users\\salma\\OneDrive\\Bureau\\hospitalDB\\db.db';
+
+const path = require('path');
+const dbPath = path.join(__dirname, '..', 'hospitalDB.db');
 
 // SQLite database connection
 const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
