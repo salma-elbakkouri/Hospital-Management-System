@@ -1,4 +1,4 @@
-// code where add is working 
+// code where add login and fetch is working 
 // secret key eb1cc3568896142f100abc92dbe2638b2678b39a433544ad1bec4c5398ab75364edd66a2c6961b1a548947920727e3aa177dc274cb2030488ef092a717d10e5e
 
 const express = require('express');
@@ -18,10 +18,10 @@ app.use(cors());
 app.use(express.json());
 
 // Specify the path to your SQLite database file
-// const dbPath = 'C:\\Users\\salma\\OneDrive\\Bureau\\hospitalDB\\db.db';
+const dbPath = 'C:\\Users\\salma\\OneDrive\\Bureau\\hospitalDB\\db.db';
 
-const path = require('path');
-const dbPath = path.join(__dirname, '..', 'hospitalDB.db');
+// const path = require('path');
+// const dbPath = path.join(__dirname, '..', 'hospitalDB.db');
 
 // SQLite database connection
 const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
@@ -30,6 +30,27 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
     return;
   }
   console.log('Connected to the SQLite database.');
+
+
+
+
+// Ensure the tables exist
+db.run(`CREATE TABLE IF NOT EXISTS visitetermines (
+  id INTEGER PRIMARY KEY,
+  numero INTEGER,
+  nom TEXT,
+  prenom TEXT,
+  type TEXT
+)`);
+
+db.run(`CREATE TABLE IF NOT EXISTS visiteannule (
+  id INTEGER PRIMARY KEY,
+  numero INTEGER,
+  nom TEXT,
+  prenom TEXT,
+  type TEXT
+)`);
+
 });
 
 // Function to log all patients from the database
@@ -186,6 +207,63 @@ app.post('/api/patients', authenticateToken, (req, res) => {
 });
 
 
+app.post('/api/terminate-visit', authenticateToken, (req, res) => {
+  const { id } = req.body;
+  const selectPatient = "SELECT * FROM patients WHERE id = ?";
+  const insertTerminated = "INSERT INTO visitetermines (id, numero, nom, prenom, type) VALUES (?, ?, ?, ?, ?)";
+  const deletePatient = "DELETE FROM patients WHERE id = ?";
+
+  db.get(selectPatient, [id], (err, patient) => {
+    if (err || !patient) {
+      return res.status(500).json({ error: 'Failed to retrieve patient' });
+    }
+
+    const { numero, nom, prenom, type } = patient;
+    db.run(insertTerminated, [id, numero, nom, prenom, type], (err) => {
+      if (err) {
+        return res.status(500).json({ error: 'Failed to insert into visitetermines' });
+      }
+
+      db.run(deletePatient, [id], (err) => {
+        if (err) {
+          return res.status(500).json({ error: 'Failed to delete patient' });
+        }
+
+        res.status(200).json({ message: 'Visit terminated and patient moved to visitetermines' });
+      });
+    });
+  });
+});
+
+
+// post request to cancel a visit 
+app.post('/api/cancel-visit', authenticateToken, (req, res) => {
+  const { id } = req.body;
+  const selectPatient = "SELECT * FROM patients WHERE id = ?";
+  const insertCanceled = "INSERT INTO visiteannule (id, numero, nom, prenom, type) VALUES (?, ?, ?, ?, ?)";
+  const deletePatient = "DELETE FROM patients WHERE id = ?";
+
+  db.get(selectPatient, [id], (err, patient) => {
+    if (err || !patient) {
+      return res.status(500).json({ error: 'Failed to retrieve patient' });
+    }
+
+    const { numero, nom, prenom, type } = patient;
+    db.run(insertCanceled, [id, numero, nom, prenom, type], (err) => {
+      if (err) {
+        return res.status(500).json({ error: 'Failed to insert into visiteannule' });
+      }
+
+      db.run(deletePatient, [id], (err) => {
+        if (err) {
+          return res.status(500).json({ error: 'Failed to delete patient' });
+        }
+
+        res.status(200).json({ message: 'Visit canceled and patient moved to visiteannule' });
+      });
+    });
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt');
 const sqlite3 = require('sqlite3').verbose();
 
-// const dbPath = 'C:\\Users\\salma\\OneDrive\\Bureau\\hospitalDB\\db.db';
-const path = require('path');
-const dbPath = path.join(__dirname, '..', 'hospitalDB.db');
+const dbPath = 'C:\\Users\\salma\\OneDrive\\Bureau\\hospitalDB\\db.db';
+// const path = require('path');
+// const dbPath = path.join(__dirname, '..', 'hospitalDB.db');
 const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE);
 
 const username = 'admin'; // Replace with your desired admin username
