@@ -41,7 +41,6 @@ function AdminLogin() {
       <p className='admin-text'>Admin Login</p>
       <form className="login-form" onSubmit={handleLogin}>
         <h1>Connexion Admin</h1>
-        <p>Veuillez saisir les informations : </p>
         <input
           type="text"
           placeholder="nom d'utilisateur"

@@ -53,12 +53,9 @@ label {
 
 .login-form h1 {
   font-size: 30px;
+  margin-bottom: 4px;
 }
 
-.login-form p {
-  margin: 5px 0;
-  font-size: 16px;
-}
 
 .login-form input {
   padding: 10px;
