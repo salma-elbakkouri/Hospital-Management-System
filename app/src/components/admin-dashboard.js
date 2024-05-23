@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './css/admindashboard.css'; // Import your CSS file for styling
 import { FaUserAlt, FaChartPie, FaUsers, FaSignOutAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 function AdminDashboard() {
   const [patients, setPatients] = useState([]);
@@ -33,8 +34,10 @@ function AdminDashboard() {
         }
       });
       setPatients(patients.filter(patient => patient.id !== id));
+      alert('Visit terminated successfully');
     } catch (error) {
       console.error('Error terminating visit:', error);
+      alert('Error terminating visit');
     }
   };
 
@@ -47,8 +50,10 @@ function AdminDashboard() {
         }
       });
       setPatients(patients.filter(patient => patient.id !== id));
+      alert('Visit canceled successfully');
     } catch (error) {
       console.error('Error canceling visit:', error);
+      alert('Error canceling visit');
     }
   };
 
@@ -65,15 +70,15 @@ function AdminDashboard() {
           <span className="sidebar-title">Admin Dashboard</span>
         </div>
         <div className="menu">
-          <div className="menu-item active">
+          <Link to="/admin/dashboard" className="menu-item active">
             <FaUserAlt className="menu-icon" /> Patients
-          </div>
+          </Link>
           <div className="menu-item">
             <FaUsers className="menu-icon" /> Utilisateurs
           </div>
-          <div className="menu-item">
+          <Link to="/admin/statistiques" className="menu-item">
             <FaChartPie className="menu-icon" /> Statistiques
-          </div>
+          </Link>
           
           <div className="menu-item logout">
             <FaSignOutAlt className="menu-icon" /> Se déconnecter

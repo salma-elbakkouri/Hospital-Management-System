@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const sqlite3 = require('sqlite3').verbose();
 
 const dbPath = 'C:\\Users\\salma\\OneDrive\\Bureau\\hospitalDB\\db.db';
+
+// path for when we switch db
 // const path = require('path');
 // const dbPath = path.join(__dirname, '..', 'hospitalDB.db');
 const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE);

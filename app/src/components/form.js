@@ -14,6 +14,7 @@ const Form = () => {
     type: 'controle' // Default value for the select input
   });
   const [patientNumber, setPatientNumber] = useState(localStorage.getItem('patientNumber') || null);
+  const [patientsBefore, setPatientsBefore] = useState(null);
 
   const toggleMode = () => {
     setMode(prevMode => (prevMode === 'light' ? 'dark' : 'light'));
@@ -29,22 +30,41 @@ const Form = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
+    const token = localStorage.getItem('token'); // Retrieve the token from local storage
+
+    if (!token) {
+      alert('No authorization token found. Please log in.');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3001/api/patients', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': token, // Include the token in the request headers
         },
         body: JSON.stringify(formData),
       });
-  
+
       const result = await response.json();
+      console.log('Response:', result); // Add logging for debugging
       if (response.ok) {
         // Update local storage and possibly state with the new numero
         navigate('/waiting', { state: { numero: result.numero } });
         localStorage.setItem('patientNumber', result.numero);
         alert(`Patient added successfully. Your waiting number is ${result.numero}`);
+
+        // Fetch the count of patients before the current patient
+        const countResponse = await fetch(`http://localhost:3001/api/patients/before/${result.numero}`, {
+          headers: {
+            'Authorization': token
+          }
+        });
+
+        const countResult = await countResponse.json();
+        setPatientsBefore(countResult.count);
       } else {
         throw new Error(result.error || 'Failed to add patient');
       }
@@ -53,7 +73,6 @@ const Form = () => {
       alert('Failed to add patient. Please check the console for more information.');
     }
   };
-  
 
   useEffect(() => {
     // Optionally handle re-fetching or updates here
@@ -93,6 +112,11 @@ const Form = () => {
           </button>
         </form>
       </div>
+      {patientsBefore !== null && (
+        <div className="patients-before">
+          {language === 'fr' ? `Il y a ${patientsBefore} patients avant vous` : `يوجد ${patientsBefore} مريض قبلك`}
+        </div>
+      )}
     </div>
   );
 };

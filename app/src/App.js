@@ -7,6 +7,7 @@ import WaitingNumberDisplay from './components/waiting-line';
 import Form from './components/form';
 import AdminLogin from './components/admin-login';
 import AdminDashboard from './components/admin-dashboard'
+import Statistiques from './components/statistiques';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         {/* Admin Side Routes */}
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/statistiques" element={<Statistiques />} />
       </Routes>
     </Router>
   );
