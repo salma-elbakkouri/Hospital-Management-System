@@ -1,7 +1,8 @@
 const bcrypt = require('bcrypt');
 const sqlite3 = require('sqlite3').verbose();
 
-const dbPath = 'C:\\Users\\salma\\OneDrive\\Bureau\\hospitalDB\\db.db';
+// const dbPath = 'C:\\Users\\salma\\OneDrive\\Bureau\\hospitalDB\\db.db';
+const dbPath = 'C:\\Users\\salma\\OneDrive\\Bureau\\hospital-management\\Hospital-Management-System\\app\\db.db';
 
 // path for when we switch db
 // const path = require('path');
